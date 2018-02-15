@@ -25,14 +25,6 @@ public final class ArrayBasedStack<T> implements StackInterface<T>
 	}
 
 
-	public void push(T newEntry)
-	{
-		checkInitialization();
-		ensureCapacity();
-		stack[topOfStack + 1] = newEntry;
-		topOfStack++;
-	}
-
 	private void checkInitialization()
 	{
 		if (!initialized)
@@ -55,10 +47,45 @@ public final class ArrayBasedStack<T> implements StackInterface<T>
 		}
 	}
 
+	public boolean isEmpty()
+	{
+		return topOfStack == -1;
+	}
 
 	public void clear()
 	{
 		topOfStack = -1;
+	}
+
+	public T peek()
+	{
+		checkInitialization();
+		if (isEmpty())
+			throw new IllegalArgumentException();
+		else
+			return stack[topOfStack];
+	}
+
+	public T pop()
+	{
+		checkInitialization();
+		if(isEmpty())
+			throw new IllegalArgumentException();
+		else
+		{
+			T pop = stack[topOfStack];
+			stack[topOfStack] = null;
+			topOfStack--;
+			return stack[topOfStack];
+		}
+	}
+
+	public void push(T newEntry)
+	{
+		checkInitialization();
+		ensureCapacity();
+		stack[topOfStack + 1] = newEntry;
+		topOfStack++;
 	}
 
 
